@@ -3,10 +3,40 @@
 
 // Include app dependency on ngMaterial
 
-angular.module( 'DashboardApp', [ 'ngMaterial' ] )
-  .controller("NavController", function ($scope) {
-    $scope.world = "World!"
+var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute' ] )
+  .controller('NavController', function ($scope) {
+
+
+    $scope.db = {
+      'slt' : {
+        '2015-Q1': {
+          'text': 'Hello'
+        }
+      },
+      'strategy' : {
+        '2015-Q1': {
+          'text': 'bob'
+        }
+      },
+      'function' : {
+        '2015-01': {
+          'engineering' : {
+            'text' : 'moo'
+          }
+        }
+      }
+    };
+
+
+    $scope.world = 'World!';
   });
+
+
+DashboardApp.config(['$routeProvider', function( $routeProvider ){
+
+  $routeProvider.when('/', {templateUrl: 'views/main.html'});
+
+}]);
 
 /*
 angular.module('dashboardApp', [

@@ -6,24 +6,34 @@
     <link rel="stylesheet" href="/bower_components/angular-material/themes/green-theme.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic">
 
+    <link rel="stylesheet" href="/styles/material-docs.css">
     <link rel="stylesheet" href="/styles/main.css">
 
 </head>
 <body layout="row" md-theme="green">
 
-  <md-sidenav
-    md-is-locked-open="true"
-    class="md-sidenav-left md-whiteframe-z2"
-  >
+  <md-sidenav md-is-locked-open="true" class="md-sidenav-left md-whiteframe-z2">
+    
     <md-toolbar>
+      <h1 class="md-toolbar-tools">Dashboards</h1>
     </md-toolbar>
-    <md-content>
-      Sidebar
+    
+    <md-content layout="column">
+      <div ng-repeat="(dbtype, dbgroup) in db">
+
+        <button class="md-menu-item menu-item menu-title" md-ink-ripple="#bbb">
+          {{dbtype}}
+        </button>
+
+        <a ng-repeat="(date, db) in dbgroup" class="menu-item menu-sub-item md-menu-item" ng-href="#/{{dbtype}}/{{date}}">
+          {{date}}
+        </a>
+      </div>
     </md-content>
   </md-sidenav>
 
-  <md-content>
-    Hello {{world}}
+  <md-content ng-view>
+    Hello {{world}} :)
     <md-button>Hello Button</md-button>
   </md-content>
 
@@ -32,6 +42,7 @@
   <script src="/bower_components/angular-animate/angular-animate.js"></script>
   <script src="/bower_components/hammerjs/hammer.js"></script>
   <script src="/bower_components/angular-material/angular-material.js"></script>
+  <script src="/bower_components/angular-route/angular-route.js"></script>
     
   <script src="/scripts/app.js"></script>
 
