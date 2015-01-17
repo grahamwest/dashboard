@@ -1,9 +1,10 @@
 {
     "dashboards": {
         "strategy": {
+            "title": "strategy",
             "dashboards": {
                 "2014-Q4": {
-                    "title":"2014 Q4 Summary",
+                    "title":"2014 Q4",
                     "view": "strategy-summary",
                     "data": {},
                     "dashboards": {

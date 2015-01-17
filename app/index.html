@@ -12,13 +12,18 @@
 </head>
 <body layout="row" md-theme="green">
 
-  <md-sidenav md-is-locked-open="true" class="md-sidenav-left md-whiteframe-z2">
+  <md-sidenav md-is-locked-open="showSidebarLocked" md-is-open="showSidebar" class="md-sidenav-left md-whiteframe-z2">
     
-    <md-toolbar>
+    <md-toolbar layout="row">
+      <md-button ng-show="!showSidebarLocked" ng-click="toggleSidebarLock()">❭</md-button>
+      <md-button ng-show="showSidebarLocked" ng-click="toggleSidebarLock(); toggleSidebar()">❬</md-button>
+
       <h1 class="md-toolbar-tools">Dashboards</h1>
-      <select ng-model="selectedDashboardSetName">
-        <option ng-repeat="(setName, v) in db.dashboards" value="{{setName}}">{{setName | humanize}}</option>
-      </select>
+      <div class="md-toolbar-tools">
+        <select ng-model="selectedDashboardSetName">
+          <option ng-repeat="(setName, v) in db.dashboards" value="{{setName}}" ng-selected="setName == selectedDashboardSetName">{{setName | humanize}}</option>
+        </select>
+      </div>
     </md-toolbar>
     
     <md-content layout="column">
@@ -42,9 +47,7 @@
     </md-content>
   </md-sidenav>
 
-  <md-content ng-view>
-    Hello {{world}} :)
-    <md-button>Hello Button</md-button>
+  <md-content ng-view layout-fill layout="column">
   </md-content>
 
   <script src="/bower_components/angular/angular.js"></script>

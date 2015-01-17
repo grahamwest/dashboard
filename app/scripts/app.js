@@ -6,15 +6,42 @@
 var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute' ] )
   .controller('NavController', function ($scope, $http) {
 
-    // load dashboard data
-    $http.get('dashboard-data.json').success(function(data) {
-      $scope.db = data;
+    $scope.db = {};
 
-      // select default set to be first one in json
+    $scope.resetDb = function() {
+      $scope.db = {};
+    };
+
+    $scope.importDbJson = function(importData) {
+      $scope.db = angular.extend({}, $scope.db, importData);
+
+      // select default dashboard set to be first one in json if we don't already have on selected
       if (!$scope.selectedDashboardSetName) {
         $scope.selectedDashboardSetName = Object.keys($scope.db.dashboards)[0];
       }
-    });
+    };
+
+    $scope.importFromUrl = function(url) {
+      // load dashboard data
+      $http.get(url).success(function(data) {
+        $scope.importDbJson(data);
+      });
+    };
+
+    $scope.showSidebar = true;
+    $scope.showSidebarLocked = true;
+
+    $scope.toggleSidebar = function() {
+      $scope.showSidebar = !$scope.showSidebar;
+    };
+
+    $scope.toggleSidebarLock = function() {
+      $scope.showSidebarLocked = !$scope.showSidebarLocked;
+    };
+
+
+    // load default data
+    $scope.importFromUrl('dashboard-data.json');
 
   });
 
@@ -37,8 +64,26 @@ DashboardApp.controller('DashboardController', function ($scope, $routeParams) {
   $scope.$parent.selectedTeamName = pathTokens[3];
 
   $scope.title = dashboard.title;
-  $scope.view = dashboard.view;
   $scope.data = dashboard.data;
+
+
+  $scope.ancestors = pathTokens
+    .slice(0, pathTokens.length - 1)
+    .map(function(v, i, tokens) {
+      var path = tokens.slice(0, i + 1);
+      var n = resolveDashboardNode($scope.$parent.db, path);
+      return {
+        title: n.title,
+        path: path.join('/'),
+        name: path[i]
+      };
+    }).slice(1);
+
+
+  $scope.viewUrl = function() {
+    return 'views/dashboards/' + dashboard.view + '.html';
+  };
+
 });
 
 
@@ -57,10 +102,10 @@ DashboardApp.config(['$routeProvider', function( $routeProvider ){
 
 
 DashboardApp.filter('humanize', function() {
-  // from https://gist.github.com/juanpujol/5835379
+  // modifid from https://gist.github.com/juanpujol/5835379
   return function(text) {
     if(text) {
-      text = text.split('-');
+      text = text.split(/[- ]/);
 
       // go through each word in the text and capitalize the first letter
       for (var i in text) {

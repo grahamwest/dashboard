@@ -1,3 +1,16 @@
 .menu-sub-item {
   padding-left: 42px;
 }
+
+ul.md-breadcrumb {
+  padding:0;
+}
+
+ul.md-breadcrumb li {
+  display: inline-block;
+}
+
+.group h1 {
+  text-align: center;
+  font-size: 150%;
+}
