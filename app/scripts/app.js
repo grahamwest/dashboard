@@ -1,5 +1,14 @@
 'use strict';
 
+
+// Include app dependency on ngMaterial
+
+angular.module( 'DashboardApp', [ 'ngMaterial' ] )
+  .controller("NavController", function ($scope) {
+    $scope.world = "World!"
+  });
+
+/*
 angular.module('dashboardApp', [
   'ngCookies',
   'ngResource',
@@ -16,3 +25,4 @@ angular.module('dashboardApp', [
         redirectTo: '/'
       });
   });
+*/
