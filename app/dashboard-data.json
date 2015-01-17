@@ -1,0 +1,48 @@
+{
+    "dashboards": {
+        "strategy": {
+            "dashboards": {
+                "2014-Q4": {
+                    "title":"2014 Q4 Summary",
+                    "view": "strategy-summary",
+                    "data": {},
+                    "dashboards": {
+                        "deployment-and-reliability": {
+                            "title":"Deployment and reliability",
+                            "view": "deployment-and-reliability",
+                            "data": {
+                                "mttr": {
+                                    "value": 150,
+                                    "units": "minutes",
+                                    "thresholds": [30, 90],
+                                    "lowIsGood": true
+                                }
+                            },
+                            "dashboards": {
+                                "payments": {
+                                    "title": "payments",
+                                    "view": "deployment-and-reliability",
+                                    "data": {
+                                        "mttr": {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "function": {
+            "dashboards": {
+                "2015-01": {
+                    "dashboards": {
+                        "engineering": {
+                            "title": "Engineering",
+                             "view": "function-engineering"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

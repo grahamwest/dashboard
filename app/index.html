@@ -16,18 +16,28 @@
     
     <md-toolbar>
       <h1 class="md-toolbar-tools">Dashboards</h1>
+      <select ng-model="selectedDashboardSetName">
+        <option ng-repeat="(setName, v) in db.dashboards" value="{{setName}}">{{setName | humanize}}</option>
+      </select>
     </md-toolbar>
     
     <md-content layout="column">
-      <div ng-repeat="(dbtype, dbgroup) in db">
+      <div ng-repeat="(dateName, dateGroup) in db.dashboards[selectedDashboardSetName].dashboards">
 
-        <button class="md-menu-item menu-item menu-title" md-ink-ripple="#bbb">
-          {{dbtype}}
-        </button>
+        <md-button class="md-menu-item menu-item" md-ink-ripple="#bbb" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}">
+          {{dateName}}
+        </md-button>
 
-        <a ng-repeat="(date, db) in dbgroup" class="menu-item menu-sub-item md-menu-item" ng-href="#/{{dbtype}}/{{date}}">
-          {{date}}
-        </a>
+        <div ng-repeat="(areaName, areaGroup) in dateGroup.dashboards">
+          <a class="menu-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}" ng-show="selectedDateName == dateName">
+            {{areaName | humanize}}
+          </a>
+
+          <a class="menu-item menu-sub-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}/{{teamName}}" ng-repeat="(teamName, teamDashboard) in areaGroup.dashboards" ng-show="selectedAreaName == areaName">
+            {{teamName | humanize}}
+          </a>
+
+        </div>
       </div>
     </md-content>
   </md-sidenav>
