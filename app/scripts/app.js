@@ -20,6 +20,7 @@ var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute' ] )
       },
       'function' : {
         '2015-01': {
+          'text': 'function',
           'engineering' : {
             'text' : 'moo'
           }
@@ -32,9 +33,32 @@ var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute' ] )
   });
 
 
+DashboardApp.controller('DashboardController', function ($scope, $routeParams) {
+
+  var resolveDashboardNode = function( tree, path ) {
+    if (path.length === 0) {
+      return tree;
+    }
+
+    return resolveDashboardNode( tree[path[0]], path.slice(1) );
+  };
+
+  var dashboard = resolveDashboardNode($scope.$parent.db, $routeParams.path.split('/'));
+
+  $scope.message = dashboard.text;
+});
+
+
 DashboardApp.config(['$routeProvider', function( $routeProvider ){
 
   $routeProvider.when('/', {templateUrl: 'views/main.html'});
+  $routeProvider.when('/:path*', {
+    controller: 'DashboardController',
+    templateUrl: function() {
+      return 'views/dashboard.html';
+    }
+  });
+  
 
 }]);
 
