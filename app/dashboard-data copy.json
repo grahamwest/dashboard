@@ -3,8 +3,8 @@
         "strategy": {
             "title": "strategy",
             "dashboards": {
-                "2014-Q4": {
-                    "title":"2014 Q4",
+                "2013-Q4": {
+                    "title":"2013 Q4",
                     "view": "strategy-summary",
                     "data": {},
                     "dashboards": {
@@ -13,18 +13,10 @@
                             "view": "deployment-and-reliability",
                             "data": {
                                 "mttr": {
-                                    "value": 90,
-                                    "unit": "minutes",
+                                    "value": 150,
+                                    "units": "minutes",
                                     "thresholds": [30, 90],
-                                    "lowIsGood": true,
-                                    "label": "Mean Time To Recovery"
-                                },
-                                "mtbf": {
-                                    "value": 1006,
-                                    "unit": "minutes",
-                                    "thresholds": [30, 90],
-                                    "lowIsGood": false,
-                                    "label": "Mean Time Between Failure"
+                                    "lowIsGood": true
                                 }
                             },
                             "dashboards": {
@@ -43,7 +35,7 @@
         },
         "function": {
             "dashboards": {
-                "2015-01": {
+                "2014-01": {
                     "dashboards": {
                         "engineering": {
                             "title": "Engineering",

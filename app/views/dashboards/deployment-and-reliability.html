@@ -1,9 +1,49 @@
-<md-content layout="column" layout-fill layout-align="center center">
-	<div class="group">
+<md-content layout="column" flex layout-align="center center">
+
+	<div class="group" layout="column" layout-fill>
 		<h1>Reliability</h1>
+
+		<div layout="row" flex>
+
+			<span flex></span>
+			
+			<value
+				ng-repeat="meter in [data.mttr, data.mtbf, data.mttr, data.mtbf] track by $index"
+				render="traffic-light"
+				value="meter.value"
+				unit="meter.unit"
+				thresholds="meter.thresholds"
+				low-is-good="meter.lowIsGood"
+				score=""
+				history=""
+				label="{{meter.label}}">
+			</value>
+
+			<span flex></span>
+		</div>
+
 	</div>
 
-	<div class="group">
-		<h1>Availability</h1>
+	<div class="group" layout-fill>
+		<h1>Deployment</h1>
+
+		<div layout="row" flex>
+
+			<span flex></span>
+			
+			<value
+				ng-repeat="meter in [data.mttr, data.mtbf] track by $index"
+				render="traffic-light"
+				value="meter.value"
+				unit="meter.unit"
+				thresholds="meter.thresholds"
+				low-is-good="meter.lowIsGood"
+				score=""
+				history=""
+				label="{{meter.label}}">
+			</value>
+
+			<span flex></span>
+		</div>
 	</div>
 </md-content>

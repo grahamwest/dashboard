@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="/styles/material-docs.css">
     <link rel="stylesheet" href="/styles/main.css">
 
+    <title>Dashboard Viewer</title>
+
 </head>
-<body layout="row" md-theme="green">
+<body layout="row" md-theme="green" ng-file-drop ng-model="dropFiles" accept="*.json">
 
   <md-sidenav md-is-locked-open="showSidebarLocked" md-is-open="showSidebar" class="md-sidenav-left md-whiteframe-z2">
     
     <md-toolbar layout="row">
-      <md-button ng-show="!showSidebarLocked" ng-click="toggleSidebarLock()">❭</md-button>
-      <md-button ng-show="showSidebarLocked" ng-click="toggleSidebarLock(); toggleSidebar()">❬</md-button>
+      <md-button ng-show="!showSidebarLocked" ng-click="toggleSidebarLock()">›</md-button>
+      <md-button ng-show="showSidebarLocked" ng-click="toggleSidebarLock(); toggleSidebar()">‹</md-button>
 
       <h1 class="md-toolbar-tools">Dashboards</h1>
       <div class="md-toolbar-tools">
@@ -27,9 +29,9 @@
     </md-toolbar>
     
     <md-content layout="column">
-      <div ng-repeat="(dateName, dateGroup) in db.dashboards[selectedDashboardSetName].dashboards">
+      <div ng-repeat="(dateName, dateGroup) in db.dashboards[selectedDashboardSetName].dashboards | orderBy:'dateName':reverse">
 
-        <md-button class="md-menu-item menu-item" md-ink-ripple="#bbb" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}">
+        <md-button class="md-menu-item date menu-item" md-ink-ripple="#bbb" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}">
           {{dateName}}
         </md-button>
 
@@ -38,7 +40,7 @@
             {{areaName | humanize}}
           </a>
 
-          <a class="menu-item menu-sub-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}/{{teamName}}" ng-repeat="(teamName, teamDashboard) in areaGroup.dashboards" ng-show="selectedAreaName == areaName">
+          <a class="menu-item menu-sub-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}/{{teamName}}" ng-repeat="(teamName, teamDashboard) in areaGroup.dashboards" ng-show="(selectedAreaName == areaName) && (selectedDateName == dateName)">
             {{teamName | humanize}}
           </a>
 
@@ -56,6 +58,7 @@
   <script src="/bower_components/hammerjs/hammer.js"></script>
   <script src="/bower_components/angular-material/angular-material.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
+  <script src="/bower_components/ng-file-upload/angular-file-upload.js"></script> 
     
   <script src="/scripts/app.js"></script>
 
