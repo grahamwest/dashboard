@@ -1,0 +1,25 @@
+<md-content layout="column" flex layout-align="center center">
+
+	<div class="meter-controls">
+		<span><a ng-click="$location.search('meterValue', 'value')" ng-class="{selected: meterValue=='value'}">Values</a
+		><a ng-click="$location.search('meterValue', 'score')"  ng-class="{selected: meterValue=='score'}">Scores</a
+		></span>
+		<!--<span><a ng-click="$location.search('meterDisplay', meterDisplay == 'chart' ? 'single' : 'chart');"  ng-class="{selected: meterDisplay=='chart'}">Chart</a
+		></span>-->
+	</div>
+
+	<div class="group" layout="row" layout-fill>
+		<value
+			ng-repeat="(key, meter) in data"
+			render="{{getRenderStyle()}}"
+			value="meter.value"
+			unit="meter.unit"
+			thresholds="meter.thresholds"
+			low-is-good="meter.lowIsGood"
+			score="meter.score"
+			history=""
+			label="{{meter.label}}">
+		</value>
+	</div>
+
+</md-content>

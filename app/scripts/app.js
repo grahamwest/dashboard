@@ -3,10 +3,12 @@
 
 // Include app dependency on ngMaterial
 
-var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute', 'angularFileUpload' ] )
-  .controller('NavController', function ($scope, $http) {
+var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute', 'angularFileUpload', 'ngFitText' ] )
+  .controller('NavController', function ($scope, $http, $location) {
 
     $scope.db = {};
+
+    $scope.$location = $location;
 
     $scope.resetDb = function() {
       $scope.db = {};
@@ -79,7 +81,7 @@ var DashboardApp = angular.module( 'DashboardApp', [ 'ngMaterial', 'ngRoute', 'a
 
   });
 
-DashboardApp.controller('DashboardController', function ($scope, $routeParams, $location) {
+DashboardApp.controller('DashboardController', function ($scope, $route, $routeParams, $location) {
 
   var resolveDashboardNode = function( tree, path ) {
     if (path.length === 0) {
@@ -105,6 +107,11 @@ DashboardApp.controller('DashboardController', function ($scope, $routeParams, $
   $scope.title = dashboard.title;
   $scope.data = dashboard.data;
 
+  $scope.$route = $route;
+  $scope.$location = $location;
+  $scope.meterValue = $routeParams.meterValue || 'value';
+  $scope.meterDisplay = $routeParams.meterDisplay;
+
 
   $scope.ancestors = pathTokens
     .slice(0, pathTokens.length - 1)
@@ -118,6 +125,17 @@ DashboardApp.controller('DashboardController', function ($scope, $routeParams, $
       };
     }).slice(1);
 
+
+  $scope.getRenderStyle = function() {
+    return {
+      'value': 'traffic-light',
+      'score': 'score-box'
+    }[$scope.meterValue];
+  };
+
+  $scope.getMeterTemplateUrl = function() {
+    return 'directives/' + $scope.getRenderStyle() + '.html';
+  };
 
   $scope.viewUrl = function() {
     return 'views/dashboards/' + dashboard.view + '.html';
@@ -163,7 +181,7 @@ DashboardApp.filter('humanize', function() {
 DashboardApp.directive('value', function() {
   return {
     restrict: 'E',
-    transclude: true,
+    transclude: false,
     replace: true,
     templateUrl: 'directives/traffic-light.html',
     scope: {
@@ -171,7 +189,9 @@ DashboardApp.directive('value', function() {
       'value': '=',
       'unit': '=',
       'lowIsGood': '=',
-      'thresholds': '='
+      'thresholds': '=',
+      'score': '=',
+      'render': '@'
     },
     link: function(scope) {
 

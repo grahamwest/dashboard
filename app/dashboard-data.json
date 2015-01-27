@@ -13,14 +13,16 @@
                             "view": "deployment-and-reliability",
                             "data": {
                                 "mttr": {
-                                    "value": 90,
+                                    "value": 66.4,
+                                    "score": 12,
                                     "unit": "minutes",
                                     "thresholds": [30, 90],
                                     "lowIsGood": true,
                                     "label": "Mean Time To Recovery"
                                 },
                                 "mtbf": {
-                                    "value": 1006,
+                                    "value": 1008,
+                                    "score": 100,
                                     "unit": "minutes",
                                     "thresholds": [30, 90],
                                     "lowIsGood": false,
@@ -30,9 +32,24 @@
                             "dashboards": {
                                 "payments": {
                                     "title": "payments",
-                                    "view": "deployment-and-reliability",
+                                    "view": "simple",
                                     "data": {
-                                        "mttr": {}
+                                        "mttr": {
+                                            "value": 66.4,
+                                            "score": 12,
+                                            "unit": "minutes",
+                                            "thresholds": [30, 90],
+                                            "lowIsGood": true,
+                                            "label": "Mean Time To Recovery"
+                                        },
+                                        "mtbf": {
+                                            "value": 1008,
+                                            "score": 100,
+                                            "unit": "minutes",
+                                            "thresholds": [30, 90],
+                                            "lowIsGood": false,
+                                            "label": "Mean Time Between Failure"
+                                        }
                                     }
                                 }
                             }

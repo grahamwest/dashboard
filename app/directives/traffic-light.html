@@ -1,9 +1,20 @@
-<div flex class="meter-box">
-	<div class="traffic-light" ng-class="color">
-		<div class="label">{{value}}
-		<span class="units">{{unit}}</span>
+<div flex>
+	<div flex class="meter-box" ng-show="render=='traffic-light'">
+		<div class="traffic-light" ng-class="color">
+			<div class="label" data-fittext="0.5">{{value}}
+			<span class="units">{{unit}}</span>
+			</div>
 		</div>
+
+		<div class="description">{{label}}</div>
 	</div>
 
-	<div class="description">{{label}}</div>
+	<div flex class="meter-box" ng-show="render=='score-box'">
+		<div class="traffic-light score-box" ng-class="color">
+			<div class="label" data-fittext="0.5">{{score}}
+			</div>
+		</div>
+
+		<div class="description">{{label}}</div>
+	</div>
 </div>

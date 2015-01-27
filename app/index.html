@@ -20,7 +20,7 @@
       <md-button ng-show="!showSidebarLocked" ng-click="toggleSidebarLock()">›</md-button>
       <md-button ng-show="showSidebarLocked" ng-click="toggleSidebarLock(); toggleSidebar()">‹</md-button>
 
-      <h1 class="md-toolbar-tools">Dashboards</h1>
+      <!--<h1 class="md-toolbar-tools">Dashboards</h1>-->
       <div class="md-toolbar-tools">
         <select ng-model="selectedDashboardSetName">
           <option ng-repeat="(setName, v) in db.dashboards" value="{{setName}}" ng-selected="setName == selectedDashboardSetName">{{setName | humanize}}</option>
@@ -31,16 +31,16 @@
     <md-content layout="column">
       <div ng-repeat="(dateName, dateGroup) in db.dashboards[selectedDashboardSetName].dashboards | orderBy:'dateName':reverse">
 
-        <md-button class="md-menu-item date menu-item" md-ink-ripple="#bbb" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}">
+        <md-button class="md-menu-item date menu-item" md-ink-ripple="#bbb" ng-click="$location.path('/' + selectedDashboardSetName + '/' + dateName)">
           {{dateName}}
         </md-button>
 
         <div ng-repeat="(areaName, areaGroup) in dateGroup.dashboards">
-          <a class="menu-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}" ng-show="selectedDateName == dateName">
+          <a class="menu-item md-menu-item" ng-click="$location.path('/' + selectedDashboardSetName + '/' + dateName + '/' + areaName)" ng-show="selectedDateName == dateName">
             {{areaName | humanize}}
           </a>
 
-          <a class="menu-item menu-sub-item md-menu-item" ng-href="#/{{selectedDashboardSetName}}/{{dateName}}/{{areaName}}/{{teamName}}" ng-repeat="(teamName, teamDashboard) in areaGroup.dashboards" ng-show="(selectedAreaName == areaName) && (selectedDateName == dateName)">
+          <a class="menu-item menu-sub-item md-menu-item" ng-click="$location.path('/' + selectedDashboardSetName + '/' + dateName + '/' + areaName + '/' + teamName)" ng-repeat="(teamName, teamDashboard) in areaGroup.dashboards" ng-show="(selectedAreaName == areaName) && (selectedDateName == dateName)">
             {{teamName | humanize}}
           </a>
 
@@ -59,6 +59,7 @@
   <script src="/bower_components/angular-material/angular-material.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
   <script src="/bower_components/ng-file-upload/angular-file-upload.js"></script> 
+  <script src="/bower_components/ngFitText/src/ng-FitText.js"></script> 
     
   <script src="/scripts/app.js"></script>
 

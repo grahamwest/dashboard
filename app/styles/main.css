@@ -1,3 +1,7 @@
+.menu-item {
+	white-space: nowrap;
+}
+
 .menu-sub-item {
   padding-left: 42px;
 }
@@ -22,14 +26,17 @@ ul.md-breadcrumb li {
 md-toolbar .md-toolbar-tools select {
 	border: none;
 	background-color: transparent;
-	font-size: 75%;
+	/*font-size: 75%; */
 	color: white;
-	font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif
-	font-weight: 100;
+	font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+	font-weight: normal;
 }
 
 
 .meter-box {
+	max-width: 30vw;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /*
@@ -62,25 +69,29 @@ md-toolbar .md-toolbar-tools select {
 
 .traffic-light.gray {
 	background-color: #ccc;
+	border-color: #ccc;
 }
 
 .traffic-light.red {
 	background-color: #cc0000;
+	border-color: #cc0000;
 }
 
 .traffic-light.amber {
 	background-color: #ECC340;
+	border-color: #ECC340;
 	color: #666;
 }
 
 .traffic-light.green {
 	background-color: #393;
+	border-color: #393;
 }
 
 .traffic-light .label {
 	width: 100%;
 	text-align: center;
-	font-size: 4vw;
+	font-size: 4.75vw;
 
 	position:  absolute;
 	top: 25%;
@@ -110,4 +121,56 @@ md-toolbar .md-toolbar-tools select {
 
 .group {
 	padding-bottom: 2em;
+	padding-left: 6vw;
+	padding-right: 6vw;
+}
+
+.meter-controls {
+	position: absolute;
+	top: 1rem;
+	right: 0.3rem;
+	display: inline-block;
+	user-select: none;
+}
+
+.meter-controls a.selected {
+	background-color: #4caf50; /* green */
+	color: white;
+	/*border-left-color: white;*/
+}
+
+.meter-controls a {
+	border: 1px solid #4caf50;
+	color: #4caf50;
+	padding: 1ex;
+	margin: 0;
+	border-right-width: 0;
+	cursor: pointer;
+}
+
+.meter-controls a:first-child {
+	border-top-left-radius: 2.2ex;
+	border-bottom-left-radius: 2.2ex;
+	padding-left: 1.25ex;
+	margin-left: 1ex;
+}
+
+.meter-controls a:last-child {
+	border-top-right-radius: 2.2ex;
+	border-bottom-right-radius: 2.2ex;
+	padding-right: 1.25ex;
+	border-right-width: 1px;
+}
+
+.traffic-light.score-box {
+	/*border-radius: 0;*/
+	box-sizing: border-box;
+	border-width: 0.5ex;
+	border-style: solid;
+	background-color: white;
+	color: #666;
+}
+
+.md-breadcrumb a {
+	cursor: pointer;
 }

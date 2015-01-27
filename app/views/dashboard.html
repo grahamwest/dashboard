@@ -3,7 +3,7 @@
 	<div class="md-toolbar-tools">
 		<ul class="md-toolbar-item md-breadcrumb">
 			<li ng-repeat="a in ancestors">
-				<a ng-href="#/{{a.path}}">{{(a.title || a.name) | humanize}}</a> 〉</li
+				<a ng-click="$location.path('/' + a.path)">{{(a.title || a.name) | humanize}}</a> 〉</li
 			><li>{{title | humanize}}</li>
 		</ul>
 		<span flex>

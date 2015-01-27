@@ -1,25 +1,31 @@
 <md-content layout="column" flex layout-align="center center">
 
+	<div class="meter-controls">
+		<span><a ng-click="$location.search('meterValue', 'value')" ng-class="{selected: meterValue=='value'}">Values</a
+		><a ng-click="$location.search('meterValue', 'score')"  ng-class="{selected: meterValue=='score'}">Scores</a
+		></span>
+		<!--<span><a ng-click="$location.search('meterDisplay', meterDisplay == 'chart' ? 'single' : 'chart');"  ng-class="{selected: meterDisplay=='chart'}">Chart</a
+		></span>-->
+	</div>
+
 	<div class="group" layout="column" layout-fill>
 		<h1>Reliability</h1>
 
 		<div layout="row" flex>
 
-			<span flex></span>
 			
 			<value
-				ng-repeat="meter in [data.mttr, data.mtbf, data.mttr, data.mtbf] track by $index"
-				render="traffic-light"
+				ng-repeat="meter in [data.mttr, data.mtbf, data.fci, data.critical] track by $index"
+				render="{{getRenderStyle()}}"
 				value="meter.value"
 				unit="meter.unit"
 				thresholds="meter.thresholds"
 				low-is-good="meter.lowIsGood"
-				score=""
+				score="meter.score"
 				history=""
 				label="{{meter.label}}">
 			</value>
 
-			<span flex></span>
 		</div>
 
 	</div>
@@ -28,22 +34,19 @@
 		<h1>Deployment</h1>
 
 		<div layout="row" flex>
-
-			<span flex></span>
 			
 			<value
-				ng-repeat="meter in [data.mttr, data.mtbf] track by $index"
-				render="traffic-light"
+				ng-repeat="meter in [data.downtime, data.people, data.shelf, data.effort] track by $index"
+				render="{{getRenderStyle()}}"
 				value="meter.value"
 				unit="meter.unit"
 				thresholds="meter.thresholds"
 				low-is-good="meter.lowIsGood"
-				score=""
+				score="meter.score"
 				history=""
 				label="{{meter.label}}">
 			</value>
 
-			<span flex></span>
 		</div>
 	</div>
 </md-content>
